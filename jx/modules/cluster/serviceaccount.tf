@@ -23,4 +23,10 @@ resource "google_project_iam_member" "build_controller_sa_storage_admin_binding"
   member   = "serviceAccount:${google_service_account.build_controller_sa.email}"
 }
 
+resource "google_service_account_iam_member" "build_controller_sa_workload_identity_user" {
+  provider           = google
+  service_account_id = google_service_account.build_controller_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.gcp_project}.svc.id.goog[${var.jenkins_x_namespace}/jenkins-x-controllerbuild]"
+}
 
