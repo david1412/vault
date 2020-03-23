@@ -4,6 +4,7 @@
 variable "gcp_project" {
   description = "The name of the GCP project"
   type = string
+  default ="labs-252012"
 }
 
 // ----------------------------------------------------------------------------
