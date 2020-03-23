@@ -33,10 +33,6 @@ output "vault_bucket_url" {
   value = module.vault.vault_bucket_url
 }
 
-output "backup_bucket_url" {
-  value = module.backup.backup_bucket_url
-}
-
 
 // ----------------------------------------------------------------------------
 // Vault
