@@ -30,3 +30,24 @@ resource "google_service_account_iam_member" "build_controller_sa_workload_ident
   member             = "serviceAccount:${var.gcp_project}.svc.id.goog[${var.jenkins_x_namespace}/jenkins-x-controllerbuild]"
 }
 
+resource "kubernetes_service_account" "build_controller_sa" {
+  automount_service_account_token = true
+  metadata {
+    name = "jenkins-x-controllerbuild"
+    namespace = var.jenkins_x_namespace
+    annotations = {
+      "iam.gke.io/gcp-service-account" = google_service_account.build_controller_sa.email
+    }
+  }
+  lifecycle {
+    ignore_changes = [
+      metadata[0].labels,
+      metadata[0].annotations,
+      secret
+    ]
+  }
+  depends_on = [
+    google_container_node_pool.jx_node_pool,
+  ]
+}
+
