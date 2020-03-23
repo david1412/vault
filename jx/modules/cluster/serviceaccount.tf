@@ -23,6 +23,14 @@ resource "google_project_iam_member" "build_controller_sa_storage_admin_binding"
   member   = "serviceAccount:${google_service_account.build_controller_sa.email}"
 }
 
+/ ----------------------------------------------------------------------------
+// Setup K8s service accounts
+//
+// https://www.terraform.io/docs/providers/google/r/google_service_account_iam.html#google_service_account_iam_member
+// https://www.terraform.io/docs/providers/kubernetes/r/service_account.html
+// ----------------------------------------------------------------------------
+// Build controller
+
 resource "google_service_account_iam_member" "build_controller_sa_workload_identity_user" {
   provider           = google
   service_account_id = google_service_account.build_controller_sa.name
