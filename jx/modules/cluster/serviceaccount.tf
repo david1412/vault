@@ -23,7 +23,7 @@ resource "google_project_iam_member" "build_controller_sa_storage_admin_binding"
   member   = "serviceAccount:${google_service_account.build_controller_sa.email}"
 }
 
-/ ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // Setup K8s service accounts
 //
 // https://www.terraform.io/docs/providers/google/r/google_service_account_iam.html#google_service_account_iam_member
